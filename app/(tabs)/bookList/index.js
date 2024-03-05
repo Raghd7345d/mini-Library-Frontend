@@ -67,7 +67,7 @@ export default function BookList() {
   return (
     <ImageBackground
       source={{
-        uri: "https://unsplash.com/de/fotos/schreibtisch-mit-schreibwaren-studioaufnahme-auf-holzernem-hintergrund-ieIWTOQIc0whttps://unsplash.com/de/fotos/braunes-und-weisses-holzhaus-in-der-nahe-von-baumen-unter-blauem-himmel-wahrend-der-nacht-AKLmn_MSAbAhttps://unsplash.com/de/fotos/braunes-und-weisses-holzhaus-in-der-nahe-von-baumen-unter-blauem-himmel-wahrend-der-nacht-AKLmn_MSAbA",
+        uri: "https://fastly.picsum.photos/id/56/2880/1920.jpg?hmac=BIplhYgNZ9bsjPXYhD0xx6M1yPgmg4HtthKkCeJp6Fk",
       }}
       style={styles.container}
     >
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   },
   description: {
     marginBottom: 20,
-    color: "#666666",
+    color: "white",
   },
   card: {
     borderRadius: 8,
