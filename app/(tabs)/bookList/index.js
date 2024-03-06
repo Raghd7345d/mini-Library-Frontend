@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Pressable,
   ScrollView,
   Animated,
   ActivityIndicator,
@@ -13,6 +12,7 @@ import { UserContext } from "../../../context/UserContext";
 import { useContext } from "react";
 import axios from "axios";
 import { ImageBackground } from "react-native";
+import { Link } from "expo-router";
 
 export default function BookList() {
   const [bookList, setBookList] = useState([]);
@@ -28,16 +28,6 @@ export default function BookList() {
       useNativeDriver: true,
     }).start();
   }, []);
-
-  function handleBookPress(id) {
-    setBookList((prevBookList) =>
-      prevBookList.map((book) =>
-        book._id === id && book.available > 0
-          ? { ...book, available: book.available - 1 }
-          : book
-      )
-    );
-  }
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -71,7 +61,7 @@ export default function BookList() {
       }}
       style={styles.container}
     >
-      <ScrollView style={styles.container}>
+      <ScrollView>
         <Animated.View style={{ opacity: fadeAnim }}>
           <Text style={styles.heading}>{user?.name}</Text>
         </Animated.View>
@@ -83,40 +73,28 @@ export default function BookList() {
           </Text>
         </Animated.View>
 
-        {bookList.map((book) => (
-          <Pressable key={book._id} onPress={() => handleBookPress(book._id)}>
-            <Animated.View
-              style={[
-                styles.card,
-                {
-                  opacity: fadeAnim,
-                  transform: [
-                    {
-                      translateY: fadeAnim.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [50, 0],
-                      }),
-                    },
-                  ],
-                },
-              ]}
-            >
-              <Text style={styles.title}>{book.title}</Text>
-              <Text style={styles.available}>
-                Available Copies: {book.available}
-              </Text>
-              <Text
-                style={[
-                  styles.borrowButton,
+        {bookList.map((book, index) => (
+          <Animated.View
+            key={index}
+            style={[
+              styles.card,
+              {
+                opacity: fadeAnim,
+                transform: [
                   {
-                    backgroundColor: book.available > 0 ? "#FFA500" : "#999999",
+                    translateY: fadeAnim.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [50, 0],
+                    }),
                   },
-                ]}
-              >
-                {book.available > 0 ? "Borrow" : "OOOpsii!! Unavailable"}
-              </Text>
-            </Animated.View>
-          </Pressable>
+                ],
+              },
+            ]}
+          >
+            <Link key={book._id} href={`/bookList/${book._id}`} asChild>
+              <Text style={styles.title}>{book.title}</Text>
+            </Link>
+          </Animated.View>
         ))}
       </ScrollView>
     </ImageBackground>
@@ -143,7 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
-    color: "#333333",
+    color: "white",
   },
   description: {
     marginBottom: 20,
@@ -161,17 +139,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     color: "#333333",
-  },
-  available: {
-    marginBottom: 5,
-    color: "#666666",
-  },
-  borrowButton: {
-    color: "#ffffff",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    textAlign: "center",
-    marginTop: 10,
   },
 });

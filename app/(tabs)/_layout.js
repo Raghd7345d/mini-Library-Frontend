@@ -54,21 +54,22 @@ export default function MainTabs() {
           },
         }}
       />
-      {/* <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Profile",
-          tabBarIcon: ({ color }) => {
-            return (
-              <MaterialCommunityIcons
-                name="face-man-profile"
-                size={24}
-                color="white"
-              />
-            );
-          },
-        }}
-      /> */}
+      {/* //   <Tabs.Screen
+    //     name="profile"
+    //     options={{
+    //       title: "Profile",
+    //       tabBarIcon: ({ color }) => {
+    //         return (
+    //           <MaterialCommunityIcons
+    //             name="face-man-profile"
+    //             size={24}
+    //             color="white"
+    //           />
+    //         );
+    //       },
+    //     }}
+    //   />
+   */}
     </Tabs>
   );
 }

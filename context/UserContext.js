@@ -10,13 +10,14 @@ export function UserProvider({ children }) {
       setUser({ name });
     } else {
       alert(
-        `Error: Unable to login as "${name}". Initiating hacking sequence...
-         🚀\n\nHacking complete! Unauthorized access detected! Laptop self-destruct sequence initiated... 💥💻🔥\n\nJust kidding! 😄 You cannot login as "${name}".`
+        `Error: Can't log in as "${name}". Hold up, are you trying to hack me? 🤨🔒🔍
+        Unauthorized access detected! 💻🔥💥 wallah you will regret
+.`
       );
     }
   }
 
-  function logout() {
+  function logout(name) {
     setUser(null);
   }
 

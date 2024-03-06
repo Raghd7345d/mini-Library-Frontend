@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   Button,
   ImageBackground,
   StyleSheet,
+  Animated,
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import { UserContext } from "../context/UserContext";
@@ -14,6 +15,15 @@ import { COLORS } from "../styles/constants";
 export default function Login() {
   const [userName, setUserName] = useState("");
   const { login, logout, user } = useContext(UserContext);
+  const [fadeAnim] = useState(new Animated.Value(0));
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   const handleLogin = () => {
     login(userName);
@@ -29,7 +39,14 @@ export default function Login() {
       source={{ uri: "https://source.unsplash.com/random" }}
       style={styles.backgroundImage}
     >
-      <View style={styles.container}>
+      <Animated.View
+        style={[
+          styles.container,
+          {
+            opacity: fadeAnim,
+          },
+        ]}
+      >
         <Text style={styles.title}>Welcome!</Text>
         <View style={styles.form}>
           {!user ? (
@@ -49,7 +66,9 @@ export default function Login() {
             </>
           ) : (
             <>
-              <Text style={styles.greeting}>Hello, {user.name}!</Text>
+              <Text style={styles.greeting}>
+                Hello we miss you ❤️, {user.name}!
+              </Text>
               <Button
                 onPress={handleLogout}
                 color={COLORS.secondary}
@@ -58,7 +77,7 @@ export default function Login() {
             </>
           )}
         </View>
-      </View>
+      </Animated.View>
     </ImageBackground>
   );
 }
